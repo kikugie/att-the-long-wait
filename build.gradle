@@ -1,6 +1,6 @@
 plugins {
     id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.1-SNAPSHOT" apply false
+    id "dev.architectury.loom" version "1.6-SNAPSHOT" apply false
 }
 
 architectury {
@@ -15,6 +15,7 @@ subprojects {
     }
 
     repositories {
+        mavenCentral()
         maven { url "https://maven.isxander.dev/releases"}
         maven { url "https://jitpack.io" }
         maven { url "https://maven.enjarai.nl/releases" }
@@ -43,7 +44,7 @@ subprojects {
         // The following line declares the mojmap mappings, you may use other mappings as well
 //        mappings loom.officialMojangMappings()
         // The following line declares the yarn mappings you may select this one as well.
-        mappings "net.fabricmc:yarn:1.20+build.1:v2"
+        mappings "net.fabricmc:yarn:1.20.4+build.3:v2"
     }
 }
 

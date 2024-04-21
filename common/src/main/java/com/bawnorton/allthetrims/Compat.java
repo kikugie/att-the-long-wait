@@ -2,6 +2,7 @@ package com.bawnorton.allthetrims;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.client.render.RenderLayer;
+import org.jetbrains.annotations.Contract;
 
 public abstract class Compat {
     @ExpectPlatform
@@ -20,6 +21,7 @@ public abstract class Compat {
     }
 
     @ExpectPlatform
+    @Contract(pure = true)
     public static boolean isDynamicTrimLoaded() {
         throw new AssertionError();
     }

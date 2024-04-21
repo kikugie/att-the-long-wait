@@ -6,6 +6,7 @@ import mezz.jei.api.recipe.RecipeType;
 import mezz.jei.library.plugins.vanilla.anvil.SmithingRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
@@ -19,7 +20,7 @@ public class AllTheTrimsSmithingRecipeCategory extends SmithingRecipeCategory {
     }
 
     @Override
-    public @NotNull RecipeType<SmithingRecipe> getRecipeType() {
+    public @NotNull RecipeType<RecipeEntry<SmithingRecipe>> getRecipeType() {
         return JeiPluginImpl.smithingRecipeType;
     }
 
@@ -34,7 +35,7 @@ public class AllTheTrimsSmithingRecipeCategory extends SmithingRecipeCategory {
     }
 
     @Override
-    public boolean isHandled(SmithingRecipe recipe) {
-        return JeiPluginImpl.isTrimmingRecipe(recipe);
+    public boolean isHandled(RecipeEntry<SmithingRecipe> recipe) {
+        return JeiPluginImpl.isTrimmingRecipe(recipe.value());
     }
 }

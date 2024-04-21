@@ -11,6 +11,7 @@ import dev.emi.emi.api.recipe.EmiRecipeSorting;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
 import net.minecraft.item.Items;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.RecipeType;
 import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.recipe.SmithingTransformRecipe;
@@ -28,7 +29,8 @@ public class EmiPluginImpl implements EmiPlugin {
         registry.addCategory(TRIMMING);
         registry.addWorkstation(TRIMMING, EmiStack.of(Items.SMITHING_TABLE));
 
-        for (SmithingRecipe recipe : registry.getRecipeManager().listAllOfType(RecipeType.SMITHING)) {
+        for (RecipeEntry<SmithingRecipe> entry : registry.getRecipeManager().listAllOfType(RecipeType.SMITHING)) {
+            SmithingRecipe recipe = entry.value();
             if (recipe instanceof SmithingTransformRecipe) continue;
             if (recipe instanceof SmithingTrimRecipeAccessor accessor) {
                 registry.addRecipe(new AllTheTrimsSmithingRecipe(EmiIngredient.of(accessor.getTemplate()), EmiIngredient.of(accessor.getBase()), EmiIngredient.of(accessor.getAddition()), EmiStack.of(EmiPort.getOutput(recipe)), recipe));

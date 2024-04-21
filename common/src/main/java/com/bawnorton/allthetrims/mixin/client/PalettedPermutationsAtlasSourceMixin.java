@@ -53,7 +53,7 @@ public abstract class PalettedPermutationsAtlasSourceMixin {
         };
     }
 
-    @ModifyExpressionValue(method = "method_48486", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ResourceManager;getResource(Lnet/minecraft/util/Identifier;)Ljava/util/Optional;"))
+    @ModifyExpressionValue(method = "open", at = @At(value = "INVOKE", target = "Lnet/minecraft/resource/ResourceManager;getResource(Lnet/minecraft/util/Identifier;)Ljava/util/Optional;"))
     private static Optional<Resource> addBlankPalette(Optional<Resource> optionalResource, ResourceManager resourceManager, Identifier identifier) {
         if (optionalResource.isPresent()) {
             String path = identifier.getPath();

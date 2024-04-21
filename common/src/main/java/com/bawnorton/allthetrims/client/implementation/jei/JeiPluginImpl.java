@@ -13,14 +13,15 @@ import mezz.jei.api.runtime.IIngredientManager;
 import mezz.jei.library.plugins.vanilla.crafting.VanillaRecipes;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.recipe.RecipeEntry;
 import net.minecraft.recipe.SmithingRecipe;
 import net.minecraft.recipe.SmithingTrimRecipe;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 
 public class JeiPluginImpl implements IModPlugin {
-    static final RecipeType<SmithingRecipe> smithingRecipeType = RecipeType.create(AllTheTrims.MOD_ID, "smithing", SmithingRecipe.class);
-    static IRecipeCategory<SmithingRecipe> smithingCategory;
+    static final RecipeType<RecipeEntry<SmithingRecipe>> smithingRecipeType = RecipeType.createFromVanilla(net.minecraft.recipe.RecipeType.SMITHING);
+    static IRecipeCategory<RecipeEntry<SmithingRecipe>> smithingCategory;
 
     public static boolean isTrimmingRecipe(SmithingRecipe smithingRecipe) {
         return smithingRecipe instanceof SmithingTrimRecipe;

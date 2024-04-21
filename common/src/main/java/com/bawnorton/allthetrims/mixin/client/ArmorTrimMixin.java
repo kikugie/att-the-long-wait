@@ -3,7 +3,7 @@ package com.bawnorton.allthetrims.mixin.client;
 import com.bawnorton.allthetrims.Compat;
 import com.bawnorton.allthetrims.client.util.ImageUtil;
 import com.bawnorton.allthetrims.client.util.PaletteHelper;
-import com.llamalad7.mixinextras.injector.WrapWithCondition;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.item.Item;
@@ -28,13 +28,13 @@ import java.util.Optional;
 @Mixin(ArmorTrim.class)
 public abstract class ArmorTrimMixin {
     @Shadow
-    public static Optional<ArmorTrim> getTrim(DynamicRegistryManager registryManager, ItemStack stack) {
+    public static Optional<ArmorTrim> getTrim(DynamicRegistryManager registryManager, ItemStack stack, boolean suppress) {
         throw new AssertionError();
     }
 
     @WrapOperation(method = "appendTooltip", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/MutableText;append(Lnet/minecraft/text/Text;)Lnet/minecraft/text/MutableText;"))
     private static MutableText updateColour(MutableText instance, Text text, Operation<MutableText> original, ItemStack stack, DynamicRegistryManager registryManager, List<Text> tooltip) {
-        ArmorTrim trim = getTrim(registryManager, stack).orElseThrow(AssertionError::new);
+        ArmorTrim trim = getTrim(registryManager, stack, true).orElseThrow(AssertionError::new);
         ArmorTrimMaterial material = trim.getMaterial().value();
         RegistryEntry<Item> ingredient = material.ingredient();
         String assetName = material.assetName();

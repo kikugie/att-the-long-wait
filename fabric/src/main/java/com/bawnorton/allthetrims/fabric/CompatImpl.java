@@ -21,7 +21,7 @@ public class CompatImpl {
 
     public static RenderLayer getTrimRenderLayer() {
         if (isShowMeYourSkinLoaded()) return ShowMeYourSkinCompat.getTrimRenderLayer();
-        return TexturedRenderLayers.getArmorTrims();
+        return TexturedRenderLayers.getArmorTrims(false);
     }
 
     public static boolean isDynamicTrimLoaded() {

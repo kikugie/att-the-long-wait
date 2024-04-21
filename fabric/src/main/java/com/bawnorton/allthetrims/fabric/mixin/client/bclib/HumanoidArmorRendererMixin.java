@@ -37,7 +37,7 @@ public abstract class HumanoidArmorRendererMixin {
 
         ArmorItem armourItem = (ArmorItem) stack.getItem();
         ArmorMaterial material = armourItem.getMaterial();
-        ArmorTrim.getTrim(entity.getWorld().getRegistryManager(), stack).ifPresent((trim) -> {
+        ArmorTrim.getTrim(entity.getWorld().getRegistryManager(), stack, true).ifPresent((trim) -> {
             this.renderTrim(material, entity, slot, matrices, buffer, light, trim, parentModel);
         });
     }

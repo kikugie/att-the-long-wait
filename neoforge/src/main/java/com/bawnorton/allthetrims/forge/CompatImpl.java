@@ -2,7 +2,7 @@ package com.bawnorton.allthetrims.forge;
 
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.TexturedRenderLayers;
-import net.minecraftforge.fml.ModList;
+import net.neoforged.fml.ModList;
 
 public class CompatImpl {
     public static boolean isYaclLoaded() {
@@ -10,7 +10,7 @@ public class CompatImpl {
     }
 
     public static RenderLayer getTrimRenderLayer() {
-        return TexturedRenderLayers.getArmorTrims();
+        return TexturedRenderLayers.getArmorTrims(false);
     }
 
     public static float getTrimTransparency() {

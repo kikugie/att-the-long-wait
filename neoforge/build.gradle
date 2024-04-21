@@ -5,19 +5,11 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    forge()
+    neoForge()
 }
 
 loom {
     accessWidenerPath = project(":common").loom.accessWidenerPath
-
-    forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
-
-        mixinConfig "allthetrims-common.mixins.json"
-        mixinConfig "allthetrims.mixins.json"
-    }
 }
 
 configurations {
@@ -28,37 +20,38 @@ configurations {
     developmentForge.extendsFrom common
 }
 
+repositories {
+    maven { url "https://maven.neoforged.net/releases/" }
+}
+
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
+    neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
     // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+    modApi "dev.architectury:architectury-neoforge:${rootProject.architectury_version}"
 
     // mixin addons
     implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-common:${rootProject.mixin_squared_version}"))
-    implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-forge:${rootProject.mixin_squared_version}"))
-
-    implementation(annotationProcessor("com.github.llamalad7.mixinextras:mixinextras-common:${rootProject.mixin_extras_version}"))
-    implementation(include("com.github.llamalad7.mixinextras:mixinextras-forge:${rootProject.mixin_extras_version}"))
+    implementation(include("com.github.bawnorton.mixinsquared:mixinsquared-neoforge:${rootProject.mixin_squared_version}"))
 
     // config
-    modImplementation("dev.isxander.yacl:yet-another-config-lib-forge:${rootProject.yacl_version}")
+    modImplementation("dev.isxander.yacl:yet-another-config-lib-neoforge:${rootProject.yacl_version}")
 
     // compats
     modImplementation(fileTree(dir: "libs", include: ["*.jar"]))
 
     // jei
     modCompileOnlyApi("mezz.jei:jei-${rootProject.minecraft_version}-common-api:${rootProject.jei_version}")
-    modCompileOnlyApi("mezz.jei:jei-${rootProject.minecraft_version}-forge-api:${rootProject.jei_version}")
+    modCompileOnlyApi("mezz.jei:jei-${rootProject.minecraft_version}-neoforge-api:${rootProject.jei_version}")
 
     // rei
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-forge:${rootProject.rei_version}")
-    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-forge:${rootProject.rei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-api-neoforge:${rootProject.rei_version}")
+    modCompileOnly("me.shedaniel:RoughlyEnoughItems-default-plugin-neoforge:${rootProject.rei_version}")
 
     // emi
-    modCompileOnly("dev.emi:emi-forge:${rootProject.emi_version}:api")
+    modCompileOnly("dev.emi:emi-neoforge:${rootProject.emi_version}:api")
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionNeoForge")) { transitive = false }
 }
 
 processResources {
@@ -74,18 +67,17 @@ shadowJar {
     exclude "architectury.common.json"
 
     configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+    archiveClassifier = "dev-shadow"
 }
 
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    classifier null
-    archiveClassifier = "forge+${rootProject.minecraft_version}"
+    archiveClassifier = "neoforge+${rootProject.minecraft_version}"
 }
 
 jar {
-    classifier "dev"
+    archiveClassifier = "dev"
 }
 
 sourcesJar {
@@ -117,8 +109,8 @@ publishing {
 publishMods {
     file = remapJar.archiveFile
     changelog = "[Changelog](https://github.com/Bawnorton/AllTheTrims/releases/tag/%s)".formatted(project.version)
-    type = STABLE
-    modLoaders.add("forge")
+    type = BETA
+    modLoaders.add("neoforge")
 
     curseforge {
         accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")

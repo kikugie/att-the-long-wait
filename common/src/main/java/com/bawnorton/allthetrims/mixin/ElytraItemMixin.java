@@ -21,7 +21,7 @@ public abstract class ElytraItemMixin extends ItemMixin {
     protected void appendMissingElytraTrimsTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context, CallbackInfo ci) {
         if (world == null) return;
 
-        Optional<ArmorTrim> trim = ArmorTrim.getTrim(world.getRegistryManager(), stack);
+        Optional<ArmorTrim> trim = ArmorTrim.getTrim(world.getRegistryManager(), stack, true);
         if (trim.isEmpty()) return;
 
         tooltip.add(Text.translatable("tooltip.elytratrims.missing"));

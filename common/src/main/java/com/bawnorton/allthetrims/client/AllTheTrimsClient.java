@@ -40,7 +40,7 @@ public class AllTheTrimsClient {
             if (networkHandler == null) return -1;
 
             DynamicRegistryManager registryManager = networkHandler.getRegistryManager();
-            Optional<ArmorTrim> optionalTrim = ArmorTrim.getTrim(registryManager, stack);
+            Optional<ArmorTrim> optionalTrim = ArmorTrim.getTrim(registryManager, stack, true);
             if (optionalTrim.isEmpty()) {
                 if (stack.getItem() instanceof DyeableArmorItem dyeableArmorItem)
                     return tintIndex == 0 ? dyeableArmorItem.getColor(stack) : -1;

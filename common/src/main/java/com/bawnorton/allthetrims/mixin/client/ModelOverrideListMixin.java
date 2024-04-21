@@ -38,7 +38,7 @@ public abstract class ModelOverrideListMixin {
         if (!(stack.getItem() instanceof ArmorItem)) return original;
         if (world == null) return original;
 
-        Optional<ArmorTrim> optionalTrim = ArmorTrim.getTrim(world.getRegistryManager(), stack);
+        Optional<ArmorTrim> optionalTrim = ArmorTrim.getTrim(world.getRegistryManager(), stack, true);
         if (optionalTrim.isEmpty()) return original;
 
         ArmorTrim trim = optionalTrim.get();
